@@ -5,11 +5,8 @@ import pygame
 from abc import ABC, abstractmethod
 from astar import a_star
 from setting import *
-from sprites import *
-import sprites
 import zombie
-
-
+import setting
 
 vector = pygame.math.Vector2  # tạo biến vector2
 
@@ -17,7 +14,7 @@ PLAYER = []
 ENEMY = []
 
 player1_alive = True
-enemy_alive = True
+game_over = True
 
 turning_x = 0
 turning_y = 1
@@ -79,6 +76,8 @@ class Player(pygame.sprite.Sprite, ABC):
     def get_is_shoot(self):
         return self.is_shoot
 
+    def set_death_time(self, death_time):
+        self.death_time = death_time
 
     @abstractmethod
     def keys(self):
@@ -91,14 +90,6 @@ class Player(pygame.sprite.Sprite, ABC):
     @abstractmethod
     def shoot(self):
         pass
-
-    # def can_shoot(self):  # kiểm tra xem có được bắn hay không
-    #     if len(PLAYER) <= 2 and ENEMY:
-    #         self.is_shoot = True
-    #     elif len(PLAYER) == 2 or ENEMY:
-    #         self.is_shoot = True
-    #     else:
-    #         self.is_shoot = False
 
     def check_collide(self, direction):  # kiểm tra va chạm với tường,người chơi ,enemy
         for wall in self.game.walls:
@@ -125,25 +116,18 @@ class Player(pygame.sprite.Sprite, ABC):
                         self.hit_rect.bottom = enemy.hit_rect.top
                     if self.vel.y < 0:
                         self.hit_rect.top = enemy.hit_rect.bottom
-        for player in PLAYER:
-            if player != self and player.hit_rect.colliderect(self.hit_rect):
-                if direction == 'x':
-                    if self.vel.x > 0:
-                        self.hit_rect.right = player.hit_rect.left
-                    if self.vel.x < 0:
-                        self.hit_rect.left = player.hit_rect.right
-                if direction == 'y':
-                    if self.vel.y > 0:
-                        self.hit_rect.bottom = player.hit_rect.top
-                    if self.vel.y < 0:
-                        self.hit_rect.top = player.hit_rect.bottom
 
     def move(self):  # di chuyển của xe
-        self.hit_rect.centerx += self.vel.x * self.game.changing_time  # cộng vận tốc vô hit_rect.center trước để kiểm tra va chạm
+        self.hit_rect.centerx += self.vel.x * self.game.changing_time
         self.check_collide('x')
         self.hit_rect.centery += self.vel.y * self.game.changing_time
         self.check_collide('y')
-        self.rect.center = self.hit_rect.center  # sau đó cập nhật rect và position để hình ảnh được cập nhật lại vị trí
+
+        # Giới hạn di chuyển trong khung cửa sổ
+        self.hit_rect.centerx = max(self.hit_rect.width / 2, min(self.hit_rect.centerx, WIDTH - self.hit_rect.width / 2))
+        self.hit_rect.centery = max(self.hit_rect.height / 2, min(self.hit_rect.centery, HEIGHT - self.hit_rect.height / 2))
+
+        self.rect.center = self.hit_rect.center
         self.position = vector(self.hit_rect.center)
 
     def update(self):  # hàm này quan trọng phải có vì liên tục được gọi lại
@@ -170,37 +154,37 @@ class Player1(Player):
         global turning_x,turning_y
         # Xác định hướng di chuyển và cập nhật hình ảnh
         direction_pressed = vector(0, 0)
-        if keys_state[pygame.K_LEFT]:
+        if keys_state[pygame.K_a]:
             direction_pressed.x -= 1
             turning_x = 0
             turning_y = -1
-        if keys_state[pygame.K_RIGHT]:
+        if keys_state[pygame.K_d]:
             direction_pressed.x += 1
             turning_x = 0
             turning_y = -1
-        if keys_state[pygame.K_UP]:
+        if keys_state[pygame.K_w]:
             direction_pressed.y -= 1
             turning_x = 0
             turning_y = 1
-        if keys_state[pygame.K_DOWN]:
+        if keys_state[pygame.K_s]:
             direction_pressed.y += 1
             turning_x = 0
             turning_y = 1
 
         # Xác định hướng di chuyển chéo
-        if keys_state[pygame.K_LEFT] and keys_state[pygame.K_UP]:
+        if keys_state[pygame.K_a] and keys_state[pygame.K_w]:
             direction_pressed = vector(-1, -1).normalize()
             turning_x = 1
             turning_y = 0
-        elif keys_state[pygame.K_LEFT] and keys_state[pygame.K_DOWN]:
+        elif keys_state[pygame.K_a] and keys_state[pygame.K_s]:
             direction_pressed = vector(-1, 1).normalize()
             turning_x = -1
             turning_y = 0
-        elif keys_state[pygame.K_RIGHT] and keys_state[pygame.K_UP]:
+        elif keys_state[pygame.K_d] and keys_state[pygame.K_w]:
             direction_pressed = vector(1, -1).normalize()
             turning_x = -1
             turning_y = 0
-        elif keys_state[pygame.K_RIGHT] and keys_state[pygame.K_DOWN]:
+        elif keys_state[pygame.K_d] and keys_state[pygame.K_s]:
             direction_pressed = vector(1, 1).normalize()
             turning_x = 1
             turning_y = 0
@@ -233,17 +217,12 @@ class Player1(Player):
         for bullet in self.game.bullets:
             if bullet.rect.colliderect(self.hit_rect):
                 if bullet.type != 'player1':
-                    super().get_game().death_time.append(
+                    self.game.death_time.append(
                         time.time())  # lấy thời gian lúc cút để tính thời gian hồi sinh
                     Explosion(self.game, bullet.rect.center)  # khởi tạo vụ nổ
                     bullet.kill()
                     self.kill()
                     PLAYER.remove(self)  # remove chính nó khỏi list PLAYER
-        if not super().get_game().player1.alive():
-            sprites.player1_alive = False
-            if zombie.condition_mode_zombie == False:
-                import  event
-                event.main()
 
 # -----------------------------------------------------------------------------------
 
@@ -320,7 +299,7 @@ class Enemy(pygame.sprite.Sprite):
         self.game = game
         self.path = []  # list đường đi (enemy AI)
         self.velocity = vector(0, 0)
-        self.image_enemy = getImageTank(PLAYER_IMAGE2, WHITE)
+        self.image_enemy = getImageTank(ZOMBIE_IMAGE, WHITE)
         self.image = self.image_enemy
         self.rect = self.image.get_rect()
         self.position = vector(x, y) * SQSIZE + vector(SQSIZE / 2, SQSIZE / 2)
@@ -400,8 +379,30 @@ class Enemy(pygame.sprite.Sprite):
                         self.hit_rect.bottom = player.hit_rect.top
                     if self.velocity.y < 0:
                         self.hit_rect.top = player.hit_rect.bottom
+                # Khi player va chạm với enemy
+                if isinstance(player, Player):
+                    global game_over
+                    game_over = False
+                    player.game.death_time.append(time.time())  # Lưu thời điểm player1 bị xóa
+                    Explosion(player.game, player.hit_rect.center)  # Tạo vụ nổ
+                    player.kill()  # Xóa player1
+                    PLAYER.remove(player)  # Xóa player1 khỏi danh sách PLAYER
+                    import event
+                    event.main()
+
+    def collide_with_bullet(self):
+        for bullet in self.game.bullets:
+            if bullet.rect.colliderect(self.rect):
+                if bullet.type != 'enemy':
+                    self.game.death_time.append(time.time())
+                    Explosion(self.game, bullet.rect.center)
+                    bullet.kill()
+                    self.kill()
+                    ENEMY.remove(self)
+                    setting.number_kill += 1  # Tăng biến number_kill lên 1 khi enemy bị kill
 
     def update(self):
+        self.collide_with_bullet()
         if PLAYER:
             self.move()
             self.auto_targeting()

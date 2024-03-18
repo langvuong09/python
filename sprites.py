@@ -5,9 +5,9 @@ import pygame
 from abc import ABC, abstractmethod
 from astar import a_star
 from setting import *
+import player
 from sprites import *
 import sprites
-import player
 
 vector = pygame.math.Vector2  # tạo biến vector2
 
