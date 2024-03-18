@@ -1,10 +1,12 @@
 import pygame
 from setting import *
-from waitting_hall import *
 from player import *
 import sprites
 import player
+from waitting_hall import *
 import waitting_hall
+import zombie
+import setting
 
 def main():
     pygame.init()
@@ -15,15 +17,16 @@ def main():
 
     k = 160
     # Tạo nút tiếp tục và quay về màn hình chính
-    if player.condition_mode_training_of_restart == False:
-        continue_Button = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k - 70, 200, 50, SILVER,
-                         BLACK, 3, "CONTINUE")
-    restart_button_Setting = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k, 200, 50, SILVER,
-                     BLACK, 3, "RESTART")
-    exit_button = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k + 70, 200, 50, SILVER,
-                     BLACK, 3, "EXIT")
+    if player.condition_mode_training_of_restart == False or zombie.condition_mode_zombie == False:
+        continue_Button = waitting_hall.Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k - 70, 200, 50, SILVER,
+                          BLACK, 3, "CONTINUE")
+    restart_button_Setting = waitting_hall.Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k, 200, 50, SILVER,
+                      BLACK, 3, "RESTART")
+    exit_button = waitting_hall.Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + k + 70, 200, 50, SILVER,
+                      BLACK, 3, "EXIT")
 
     g = player.Game()  # Sử dụng player.Game thay vì Game
+    z = zombie.Zombie()
     settings_x, settings_y = g.get_setting_coordinates()  # Sử dụng hàm từ player.Game để lấy tọa độ
     menu = True
     run = True
@@ -40,6 +43,9 @@ def main():
                         player.main(restart_button_Setting, exit_button)
                     if player.condition_mode_1v1_of_restart == False:
                         player.main(exit_button, restart_button_Setting)
+                    if zombie.condition_mode_zombie == False:
+                        setting.number_kill = 0
+                        zombie.main()
 
                 if exit_button.x <= mouse_pos[0] <= exit_button.x + exit_button.width and exit_button.y <= mouse_pos[
                     1] <= exit_button.y + exit_button.height:
@@ -47,16 +53,21 @@ def main():
 
                 if continue_Button.x <= mouse_pos[0] <= continue_Button.x + continue_Button.width and continue_Button.y <= mouse_pos[
                     1] <= continue_Button.y + continue_Button.height:
-                    # Thay đổi trạng thái của module player để tiếp tục hoạt động
-                    g.running = True
-                    # Kết thúc module game_setting
-                    run = False
+                    if not player.condition_mode_training_of_restart:
+                        # Thay đổi trạng thái của module player để tiếp tục hoạt động
+                        g.running = True
+                        # Kết thúc module game_setting
+                        run = False
+                    if not zombie.condition_mode_zombie:
+                        # Thay đổi trạng thái của module player để tiếp tục hoạt động
+                        z.running_time = True
+                        run = False
 
         # Vẽ màn hình
         screen.fill(DARK_SEA_GREEN)
 
         # Vẽ các nút
-        if player.condition_mode_training_of_restart == False:
+        if player.condition_mode_training_of_restart == False or zombie.condition_mode_zombie_of_restart == False:
             continue_Button.draw()
         restart_button_Setting.draw()
         exit_button.draw()

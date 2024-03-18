@@ -1,6 +1,8 @@
 import pygame
 from setting import *
 import player
+import zombie
+import setting
 
 class Button:
     def __init__(self, screen, x, y, width, height, color, border_color, border_width, text):
@@ -36,6 +38,7 @@ def main():
 
     # Gán các button vào các biến
     x = 160
+    zombie_Button = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + x - 70, 200, 50,SILVER, BLACK, 3, "ZOMBIE WORLD")
     training_Button = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + x, 200, 50, SILVER, BLACK, 3, "TRAINING")
     pvp_Button = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + x + 70, 200, 50, SILVER, BLACK, 3, "2 PLAYERS")
     button_quit = Button(screen, (screen.get_width() - 200) // 2, (screen.get_height() - 50) // 2 + x + 140, 200, 50, SILVER, BLACK, 3, "QUIT")
@@ -53,12 +56,25 @@ def main():
                 if training_Button.x <= mouse_pos[0] <= training_Button.x + training_Button.width and training_Button.y <= mouse_pos[1] <= training_Button.y + training_Button.height:
                     player.condition_mode_1v1 = True
                     player.condition_mode_1v1_of_restart = True
+                    zombie.condition_mode_zombie = True
+                    zombie.condition_mode_zombie_of_restart = True
                     player.main(training_Button,pvp_Button)
                 if pvp_Button.x <= mouse_pos[0] <= pvp_Button.x + pvp_Button.width and pvp_Button.y <= mouse_pos[1] <= pvp_Button.y + pvp_Button.height:
                     player.condition_mode_training = True
                     player.condition_mode_training_of_restart = True
+                    zombie.condition_mode_zombie = True
+                    zombie.condition_mode_zombie_of_restart = True
                     player.main(training_Button,pvp_Button)
+                if zombie_Button.x <= mouse_pos[0] <= zombie_Button.x + zombie_Button.width and zombie_Button.y <= mouse_pos[1] <= zombie_Button.y + zombie_Button.height:
+                    player.condition_mode_training = True
+                    player.condition_mode_training_of_restart = True
+                    player.condition_mode_1v1 = True
+                    player.condition_mode_1v1_of_restart = True
+                    zombie.condition_mode_zombie = False
+                    setting.number_kill = 0
+                    zombie.main()
         screen.blit(background, (0, 0))
+        zombie_Button.draw()
         training_Button.draw()
         pvp_Button.draw()
         button_quit.draw()

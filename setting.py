@@ -30,8 +30,8 @@ WALL_IMAGE='dirt.png' #hình tường
 PLAYER_IMAGE1='tank1.png' #hình player1
 PLAYER_IMAGE2='tank2.jpg' # hình player2
 BULLET_IMAGE='BULLET.png' # hình đạn
-
-
+ZOMBIE_IMAGE='zombie.png'
+number_kill = 0
 
 # RotationSpeedOfPlayer=120
 
