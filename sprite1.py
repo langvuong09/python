@@ -12,6 +12,7 @@ vector = pygame.math.Vector2  # tạo biến vector2
 
 PLAYER = []
 ENEMY = []
+BOSS = []
 
 player1_alive = True
 game_over = True
@@ -39,6 +40,7 @@ class Player(pygame.sprite.Sprite, ABC):
         self.is_shoot = False  # biến này cho phép bắn cmn hay ko
         self.rot = 0  # độ xoay của xe
         self.last_fire = pygame.time.get_ticks()  # lần cuối cùng bắn sẽ bằng thời gian từ lúc chạy game đến hiện tại (để tránh việc vừa tạo ra thì nó bắn lun)
+        self.target = None  # mục tiêu bắn của xe
 
         PLAYER.append(self)  # thêm chính nó vào list PLAYER
 
@@ -91,6 +93,49 @@ class Player(pygame.sprite.Sprite, ABC):
     def shoot(self):
         pass
 
+    def auto_targeting(self):
+        nearest_target = None
+        min_distance = float('inf')  # Khởi tạo khoảng cách nhỏ nhất là vô cùng lớn
+        for target in ENEMY + BOSS:  # Kết hợp danh sách ENEMY và BOSS
+            distance = ((target.position.x - self.position.x) ** 2 + (
+                        target.position.y - self.position.y) ** 2) ** 0.5  # Tính khoảng cách
+            if distance < min_distance:  # Nếu khoảng cách nhỏ hơn khoảng cách nhỏ nhất đã tìm thấy trước đó
+                min_distance = distance  # Cập nhật khoảng cách nhỏ nhất
+                nearest_target = target  # Cập nhật kẻ thù gần nhất
+        if nearest_target:  # Nếu tìm thấy kẻ thù gần nhất
+            self.target = nearest_target  # Cập nhật mục tiêu của người chơi là kẻ thù gần nhất
+            self.rot = self.calculate_rotation_angle(self.target)  # Tính góc xoay để hướng tới kẻ thù
+        else:
+            self.target = None  # Nếu không có kẻ thù nào trong danh sách, đặt mục tiêu là None
+        self.image = pygame.transform.rotate(self.image_player, self.rot)  # Xoay hình ảnh của người chơi
+        self.rect = self.image.get_rect()  # Xoay xong thì get_rect lại để hiển thị
+
+    def calculate_rotation_angle(self, target):  # tính độ xoay của hình khi có target(mục tiêu)
+        dx = target.position.x - self.position.x
+        dy = target.position.y - self.position.y
+        x, y = 0, 1
+        dot_product = dx * x + dy * y
+        magnitude1 = math.sqrt(x ** 2 + y ** 2)
+        magnitude2 = math.sqrt(dx ** 2 + dy ** 2)
+        cosin_angle = dot_product / (magnitude1 * magnitude2)
+        angle_radian = math.acos(cosin_angle)
+        angle_degrees = math.degrees(angle_radian)
+        if dx < 0:
+            angle_degrees = 360 - angle_degrees
+        return angle_degrees
+
+    def can_shoot(self):  # kiểm tra xem có được bắn hay không
+        if len(PLAYER) <= 2 and ENEMY:
+            self.is_shoot = True
+        elif len(PLAYER) == 2 or ENEMY:
+            self.is_shoot = True
+        elif len(PLAYER) <= 2 and BOSS:
+            self.is_shoot = True
+        elif len(PLAYER) == 2 or BOSS:
+            self.is_shoot = True
+        else:
+            self.is_shoot = False
+
     def check_collide(self, direction):  # kiểm tra va chạm với tường,người chơi ,enemy
         for wall in self.game.walls:
             if wall.rect.colliderect(self.hit_rect):
@@ -116,6 +161,18 @@ class Player(pygame.sprite.Sprite, ABC):
                         self.hit_rect.bottom = enemy.hit_rect.top
                     if self.vel.y < 0:
                         self.hit_rect.top = enemy.hit_rect.bottom
+        for boss in BOSS:
+            if boss.hit_rect.colliderect(self.hit_rect):
+                if direction == 'x':
+                    if self.vel.x > 0:
+                        self.hit_rect.right = boss.hit_rect.left
+                    if self.vel.x < 0:
+                        self.hit_rect.left = boss.hit_rect.right
+                if direction == 'y':
+                    if self.vel.y > 0:
+                        self.hit_rect.bottom = boss.hit_rect.top
+                    if self.vel.y < 0:
+                        self.hit_rect.top = boss.hit_rect.bottom
 
     def move(self):  # di chuyển của xe
         self.hit_rect.centerx += self.vel.x * self.game.changing_time
@@ -132,7 +189,9 @@ class Player(pygame.sprite.Sprite, ABC):
 
     def update(self):  # hàm này quan trọng phải có vì liên tục được gọi lại
         self.collide_with_bullet()
+        self.can_shoot()
         self.keys()
+        self.auto_targeting()
         self.shoot()
         self.move()
 
@@ -140,78 +199,37 @@ class Player(pygame.sprite.Sprite, ABC):
 
 class Player1(Player):
     def __init__(self, game, x, y):
-        # Gán hình ảnh gốc và hướng di chuyển ban đầu
-        self.original_image = getImageTank(PLAYER_IMAGE1, WHITE)
-        self.direction = vector(0, 1)  # Ban đầu hình ảnh hướng xuống
-
-        super().__init__(game, x, y, self.original_image)
-
+        super().__init__(game, x, y, getImageTank(PLAYER_IMAGE1, WHITE))  # gọi class cha
 
     def keys(self):
         super().set_rotation_speed(0)
         super().set_vel(vector(0, 0))
         keys_state = pygame.key.get_pressed()  # lấy giá trị boolean của tất cả các phím
-        global turning_x,turning_y
-        # Xác định hướng di chuyển và cập nhật hình ảnh
-        direction_pressed = vector(0, 0)
         if keys_state[pygame.K_a]:
-            direction_pressed.x -= 1
-            turning_x = 0
-            turning_y = -1
+            super().set_vel(vector(-playerSpeed, 0))
         if keys_state[pygame.K_d]:
-            direction_pressed.x += 1
-            turning_x = 0
-            turning_y = -1
+            super().set_vel(vector(playerSpeed, 0))
         if keys_state[pygame.K_w]:
-            direction_pressed.y -= 1
-            turning_x = 0
-            turning_y = 1
+            super().set_vel(vector(0, -playerSpeed))
         if keys_state[pygame.K_s]:
-            direction_pressed.y += 1
-            turning_x = 0
-            turning_y = 1
-
-        # Xác định hướng di chuyển chéo
+            super().set_vel(vector(0, playerSpeed))
         if keys_state[pygame.K_a] and keys_state[pygame.K_w]:
-            direction_pressed = vector(-1, -1).normalize()
-            turning_x = 1
-            turning_y = 0
-        elif keys_state[pygame.K_a] and keys_state[pygame.K_s]:
-            direction_pressed = vector(-1, 1).normalize()
-            turning_x = -1
-            turning_y = 0
-        elif keys_state[pygame.K_d] and keys_state[pygame.K_w]:
-            direction_pressed = vector(1, -1).normalize()
-            turning_x = -1
-            turning_y = 0
-        elif keys_state[pygame.K_d] and keys_state[pygame.K_s]:
-            direction_pressed = vector(1, 1).normalize()
-            turning_x = 1
-            turning_y = 0
+            super().set_vel(vector(-playerSpeed * math.sqrt(0.5), -playerSpeed * math.sqrt(0.5)))
+        if keys_state[pygame.K_a] and keys_state[pygame.K_s]:
+            super().set_vel(vector(-playerSpeed * math.sqrt(0.5), playerSpeed * math.sqrt(0.5)))
+        if keys_state[pygame.K_d] and keys_state[pygame.K_w]:
+            super().set_vel(vector(playerSpeed * math.sqrt(0.5), -playerSpeed * math.sqrt(0.5)))
+        if keys_state[pygame.K_d] and keys_state[pygame.K_s]:
+            super().set_vel(vector(playerSpeed * math.sqrt(0.5), playerSpeed * math.sqrt(0.5)))
 
-        if direction_pressed != vector(0, 0):
-            # Xác định hướng di chuyển từ các phím bấm
-            self.direction = direction_pressed
-            self.rot = self.direction.angle_to(vector(turning_x, turning_y))
-            self.image = pygame.transform.rotate(self.original_image, -self.rot)  # Phải đổi dấu âm ở đây
-            # Đặt vận tốc di chuyển dựa trên hướng di chuyển
-            super().set_vel(self.direction * playerSpeed)
-
-        if keys_state[pygame.K_SPACE]:
-            super().shoot()
-
-    def shoot(self):
-        keys_state = pygame.key.get_pressed()  # Lấy trạng thái của các phím
-        now = pygame.time.get_ticks()
-        if keys_state[pygame.K_SPACE] and now - super().get_last_fire() > bullet_rate_flash:
-            super().set_last_fire(now)
-
-            # Tính toán vị trí ban đầu của viên đạn
-            direction = vector(turning_x, turning_y).rotate(
-                -super().get_rot())  # Hướng bắn là phía trước của người chơi
-            position = super().get_position() + direction * 16  # Vị trí ban đầu của viên đạn
-            # Tạo viên đạn mới
-            Bullet('player1', super().get_game(), position, direction)
+    def shoot(self):  # hàm bắn
+        if super().get_is_shoot():
+            now = pygame.time.get_ticks()  # lấy thời điểm hiện tại từ lúc game chạy
+            if now - super().get_last_fire() > bullet_rate:  # cách 1 khoảng thời gian (bullet_rate)  mới được bắn
+                super().set_last_fire(now)
+                direction = vector(0, 1).rotate(-super().get_rot()).normalize()  # hướng đạn sẽ di chuyển
+                position = super().get_position() + turret.rotate(-super().get_rot())  # vị trí đạn xuất hiện lúc đầu
+                Bullet('player1', super().get_game(), position, direction)  # khởi tạo đạn
 
     def collide_with_bullet(self):  # va chạm với đạn sẽ cút
         for bullet in self.game.bullets:
@@ -400,6 +418,124 @@ class Enemy(pygame.sprite.Sprite):
                     self.kill()
                     ENEMY.remove(self)
                     setting.number_kill += 1  # Tăng biến number_kill lên 1 khi enemy bị kill
+
+    def update(self):
+        self.collide_with_bullet()
+        if PLAYER:
+            self.move()
+            self.auto_targeting()
+
+# -----------------------------------------------------------------------------------
+class Boss(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites
+        super().__init__(self.groups)
+        self.game = game
+        self.path = []  # list đường đi (enemy AI)
+        self.velocity = vector(0, 0)
+        self.image_boss = getImageTank(BOSS_IMAGE, WHITE)
+        self.image = self.image_boss
+        self.rect = self.image.get_rect()
+        self.position = vector(x, y) * SQSIZE + vector(SQSIZE / 2, SQSIZE / 2)
+        self.rect.center = self.position
+        self.hit_rect = self.rect.copy()
+        self.last_move = 0
+        self.target = None
+        self.rot = 0
+        self.hp = 3
+        BOSS.append(self)
+
+    def auto_targeting(self):
+        magnitude_min = 10000
+        for player in PLAYER:
+            magnitude = math.sqrt(
+                (player.position.x - self.position.x) ** 2 + (player.position.y - self.position.y) ** 2)
+            if magnitude < magnitude_min:
+                magnitude_min = magnitude
+                self.target = player
+            self.rot = self.calculate_rotation_angle(self.target)
+        self.image = pygame.transform.rotate(self.image_boss, self.rot)
+
+    def calculate_rotation_angle(self, target):
+        dx = target.position.x - self.position.x
+        dy = target.position.y - self.position.y
+        x, y = 0, 1
+        dot_product = dx * x + dy * y
+        magnitude1 = math.sqrt(x ** 2 + y ** 2)
+        magnitude2 = math.sqrt(dx ** 2 + dy ** 2)
+        cosin_angle = dot_product / (magnitude1 * magnitude2)
+        angle_radian = math.acos(cosin_angle)
+        angle_degrees = math.degrees(angle_radian)
+        if dx < 0:
+            angle_degrees = 360 - angle_degrees
+        return angle_degrees
+
+    def move(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_move > 1500:
+            self.last_move = now
+            self.path = a_star(self.game.maze, (int(self.position.y / (SQSIZE)), int(self.position.x / (SQSIZE))), (
+                int(self.game.player1.position.y / (SQSIZE)), int(self.game.player1.position.x / (SQSIZE))))
+        if self.path and PLAYER:
+            p = self.path[0]
+            target = vector(p[1], p[0])
+            self.velocity = vector(target.x * SQSIZE + 16 - self.position.x,
+                                   target.y * SQSIZE + 16 - self.position.y)
+            self.magnitude = math.sqrt(self.velocity.x ** 2 + self.velocity.y ** 2)
+            if self.magnitude < 1:
+                self.path.remove(p)
+                if self.path:
+                    target = vector(self.path[0][1], self.path[0][0])
+                    self.velocity = vector(target.x * SQSIZE + 16 - self.position.x,
+                                           target.y * SQSIZE + 16 - self.position.y)
+                    self.magnitude = math.sqrt(self.velocity.x ** 2 + self.velocity.y ** 2)
+            if self.magnitude != 0:
+                speed = 2.5
+                self.velocity = vector(self.velocity.x / self.magnitude * speed,
+                                       self.velocity.y / self.magnitude * speed)
+                self.hit_rect.centerx += self.velocity.x
+                self.check_collide('x')
+                self.hit_rect.centery += self.velocity.y
+                self.check_collide('y')
+                self.rect = self.image.get_rect()
+                self.rect.center = vector(self.hit_rect.center)
+                self.position = vector(self.hit_rect.center)
+
+    def check_collide(self, direction):  # va chạm với người chơi
+        for player in PLAYER:
+            if player.hit_rect.colliderect(self.hit_rect):
+                if direction == 'x':
+                    if self.velocity.x > 0:
+                        self.hit_rect.right = player.hit_rect.left
+                    if self.velocity.x < 0:
+                        self.hit_rect.left = player.hit_rect.right
+                if direction == 'y':
+                    if self.velocity.y > 0:
+                        self.hit_rect.bottom = player.hit_rect.top
+                    if self.velocity.y < 0:
+                        self.hit_rect.top = player.hit_rect.bottom
+                # Khi player va chạm với enemy
+                if isinstance(player, Player):
+                    global game_over
+                    game_over = False
+                    player.game.death_time.append(time.time())  # Lưu thời điểm player bị xóa
+                    Explosion(player.game, player.hit_rect.center)  # Tạo vụ nổ
+                    player.kill()  # Xóa player
+                    PLAYER.remove(player)  # Xóa player khỏi danh sách PLAYER
+                    import event
+                    event.main()
+
+    def collide_with_bullet(self):
+        for bullet in self.game.bullets:
+            if bullet.rect.colliderect(self.rect):
+                self.hp -= 1 # Giảm máu của boss
+                bullet.kill()
+                if bullet.type != 'enemy' and self.hp == 0:
+                    self.game.death_time.append(time.time())
+                    Explosion(self.game, bullet.rect.center)
+                    self.kill()
+                    BOSS.remove(self)
+                    setting.number_kill += 1  # Tăng biến number_kill lên 1 khi boss bị kill
 
     def update(self):
         self.collide_with_bullet()

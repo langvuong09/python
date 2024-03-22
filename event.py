@@ -33,11 +33,14 @@ def main():
                 if restart_Button.x <= mouse_pos[0] <= restart_Button.x + restart_Button.width and restart_Button.y <= mouse_pos[1] <= restart_Button.y + restart_Button.height:
                     if player.condition_mode_training == False:
                         player.main(restart_Button, exit_Button)
+                        run = False
                     if player.condition_mode_1v1 == False:
                         player.main(exit_Button, restart_Button)
+                        run = False
                     if zombie.condition_mode_zombie == False:
                         setting.number_kill = 0
                         zombie.main()
+                        run = False
 
                 if exit_Button.x <= mouse_pos[0] <= exit_Button.x + exit_Button.width and exit_Button.y <= mouse_pos[1] <= exit_Button.y + exit_Button.height:
                     waitting_hall.main()

@@ -41,11 +41,14 @@ def main():
                     1] <= restart_button_Setting.y + restart_button_Setting.height:
                     if player.condition_mode_training_of_restart == False:
                         player.main(restart_button_Setting, exit_button)
+                        run = False
                     if player.condition_mode_1v1_of_restart == False:
                         player.main(exit_button, restart_button_Setting)
+                        run = False
                     if zombie.condition_mode_zombie == False:
                         setting.number_kill = 0
                         zombie.main()
+                        run = False
 
                 if exit_button.x <= mouse_pos[0] <= exit_button.x + exit_button.width and exit_button.y <= mouse_pos[
                     1] <= exit_button.y + exit_button.height:

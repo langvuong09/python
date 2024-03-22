@@ -30,7 +30,8 @@ WALL_IMAGE='dirt.png' #hình tường
 PLAYER_IMAGE1='tank1.png' #hình player1
 PLAYER_IMAGE2='tank2.jpg' # hình player2
 BULLET_IMAGE='BULLET.png' # hình đạn
-ZOMBIE_IMAGE='zombie.png'
+ZOMBIE_IMAGE='zombie.png' # hình zombie
+BOSS_IMAGE='boss.png' # hình boss
 number_kill = 0
 
 # RotationSpeedOfPlayer=120
@@ -41,7 +42,7 @@ bullet_box=pygame.Rect(0,0,10,10)
 #shooting setting
 bulletSpeed=500
 bullet_rate=1000
-bullet_rate_flash = 500
+bullet_rate = 1200
 turret=vector(0,30) # vị trí đạn xuất hiện
 
 folder_of_game=path.dirname(__file__) #tạo đường dẫn đến thư mục chứa tệp chỉ định

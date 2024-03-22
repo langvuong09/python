@@ -22,10 +22,17 @@ class Zombie:
         pygame.display.set_caption(TITLE)
         self.data()
         self.running_time = True
+        # enemy
         self.last_enemy_spawn_time = pygame.time.get_ticks()  # Thời điểm tạo ra Enemy cuối cùng
         self.spawn_interval = 10  # Thời gian giữa mỗi lần xuất hiện enemy (10 giây)
         self.time_since_last_spawn = 0  # Thời gian kể từ lần xuất hiện enemy cuối cùng
         self.time_elapsed = 0  # Thời gian đã trôi qua
+        # boss
+        self.last_boss_spawn_time = pygame.time.get_ticks()  # Thời điểm tạo ra Boss cuối cùng
+        self.spawn_interval_boss = 30  # Thời gian giữa mỗi lần xuất hiện boss (30 giây)
+        self.time_since_last_spawn_boss = 0  # Thời gian kể từ lần xuất hiện boss cuối cùng
+        self.time_elapsed_boss = 0  # Thời gian đã trôi qua
+        self.call_boss_delay = 30  # Thời gian trì hoãn trước khi gọi Boss
 
     def data(self):
         self.death_time = []
@@ -44,21 +51,37 @@ class Zombie:
         while self.playing:
             self.changing_time = self.clock.tick(FPS) / 1000
             self.time_elapsed += self.changing_time
-            self.auto_respawn()  # hàm auto hồi sinh
+            self.auto_respawn_zombie()  # hàm auto hồi sinh zombie
+            self.auto_respawn_boss()  # Gọi Boss
             self.events()
             self.update()
             self.draw()
-            # Cập nhật spawn_interval sau mỗi khoảng thời gian nhất định
-            if self.spawn_interval >= 2:
-                if self.time_elapsed >=15:  # Cập nhật sau mỗi 5 giây
+            # Cập nhật spawn_interval sau mỗi khoảng thời gian nhất định của enemy
+            if self.spawn_interval >= 7:
+                if self.time_elapsed >=10:  # Cập nhật sau mỗi 10 giây
                     self.spawn_interval -= 1  # Giảm spawn_interval đi 1 giây
                     self.time_elapsed = 0  # Reset lại thời gian đã trôi qua
+            elif self.spawn_interval >= 2:
+                if self.time_elapsed >=18:
+                    self.spawn_interval -= 1
+                    self.time_elapsed = 0
             elif self.spawn_interval == 1:
-                if self.time_elapsed >= 20:
+                if self.time_elapsed >= 30:
                     self.spawn_interval -= 0.5
                     self.time_elapsed = 0
             else:
                 self.spawn_interval = 0.5
+            # Cập nhật spawn_interval sau mỗi khoảng thời gian nhất định của boss
+            if self.spawn_interval_boss >= 20:
+                if self.time_elapsed_boss >= 30:  # Cập nhật sau mỗi 15 giây
+                    self.spawn_interval_boss -= 3  # Giảm spawn_interval_boss đi 3 giây
+                    self.time_elapsed_boss = 0  # Reset lại thời gian đã trôi qua
+            elif self.spawn_interval_boss >= 10:
+                if self.time_elapsed_boss >= 8:
+                    self.spawn_interval_boss -= 4
+                    self.time_elapsed_boss = 0
+            else:
+                self.spawn_interval_boss = 3
 
     def get_setting_coordinates(self):
         settings_x = WIDTH - 75
@@ -113,6 +136,8 @@ class Zombie:
                     self.player1 = sprite1.Player1(self, col, row)
                 if tile == '-':
                     self.enemy = sprite1.Enemy(self, col, row)
+                if tile == '.' and self.time_elapsed_boss >= self.call_boss_delay:
+                    self.boss = sprite1.Boss(self, col, row)
 
     def update(self):
         self.all_sprites.update()
@@ -122,7 +147,7 @@ class Zombie:
             if event.type == pygame.QUIT:
                 self.quit()
 
-    def auto_respawn(self):
+    def auto_respawn_zombie(self):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_enemy_spawn_time >= self.spawn_interval * 1000:
             pos_respawn = []
@@ -136,9 +161,24 @@ class Zombie:
                 self.all_sprites.add(self.enemy)  # Thêm enemy vào nhóm sprite
                 self.last_enemy_spawn_time = current_time  # Cập nhật thời điểm cuối cùng mà enemy đã được tạo
 
+    def auto_respawn_boss(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_boss_spawn_time >= self.spawn_interval_boss * 1000:
+            pos_respawn = []
+            for row, tiles in enumerate(self.maze):
+                for col, tile in enumerate(tiles):
+                    if tile == '?':  # Thay đổi điều kiện để chỉ chọn các vị trí có dấu '-'
+                        pos_respawn.append((col, row))
+            if pos_respawn:  # Kiểm tra xem danh sách pos_respawn có phần tử nào hay không
+                pos_respawn_random = random.choice(pos_respawn)
+                self.boss = sprite1.Boss(self, pos_respawn_random[0], pos_respawn_random[1])  # Tạo một đối tượng Boss mới
+                self.all_sprites.add(self.boss)  # Thêm Boss vào nhóm sprite
+                self.last_boss_spawn_time = current_time  # Cập nhật thời điểm cuối cùng mà boss đã được tạo
+
     def mode_zombie(self):
-        PLAYER.clear()
-        ENEMY.clear()
+        sprite1.PLAYER.clear()
+        sprite1.ENEMY.clear()
+        sprite1.BOSS.clear()
         self.new()
         self.run()
 
