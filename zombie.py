@@ -38,7 +38,7 @@ class Zombie:
         self.death_time = []
         self.respawn_time = 2
         self.maze = []
-        with open(path.join(maze_forder, 'MAZE21.txt'), 'rt') as f:
+        with open(path.join(maze_forder, 'MAZE21.txt'), 'rt') as f: # tọa độ bản đò
             for line in f:
                 self.maze.append(line.strip())
         self.wall_image = pygame.image.load(path.join(image_folder, WALL_IMAGE)).convert()
