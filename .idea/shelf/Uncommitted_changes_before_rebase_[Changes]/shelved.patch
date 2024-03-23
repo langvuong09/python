@@ -1,0 +1,110 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"cc7245c6-9e8d-4c19-aa9d-4263029909a8\" name=\"Changes\" comment=\"Add files via upload\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Python Script\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"PATH_TO_GIT\" value=\"D:\\Git\\bin\\git.exe\" />\r\n    <option name=\"PREVIOUS_COMMIT_AUTHORS\">\r\n      <list>\r\n        <option value=\"langvuong09 &lt;121181317+langvuong09@users.noreply.github.com&gt;\" />\r\n      </list>\r\n    </option>\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;langvuong09&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"3be03192-ad05-4062-968a-cb089f387854\" />\r\n        <option name=\"url\" value=\"https://github.com/trungnc113/Game-Python.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"HighlightingSettingsPerFile\">\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/astar.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/event.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/game_setting.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/player.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/setting.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/sprite1.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/sprites.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/waitting_hall.py\" root0=\"SKIP_INSPECTION\" />\r\n    <setting file=\"file://$PROJECT_DIR$/Đồ án/zombie.py\" root0=\"SKIP_INSPECTION\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 7\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2buM3Y98oEsOXdqBOJaB53C89YZ\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Python.Sảnh_chờ.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.chanle.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.cộng trừ nhân chia.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.event.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.game.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.game_setting.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.player.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.robot.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.sprite1.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.sprites.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.sảnh chờ.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.test.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.waitting_hall.executor&quot;: &quot;Run&quot;,\r\n    &quot;Python.zombie.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;E:/code PYTHON&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;ChangesTree.GroupingKeys&quot;: [\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RunManager\" selected=\"Python.waitting_hall\">\r\n    <configuration name=\"game_setting\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"code PYTHON\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Đồ án\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Đồ án/game_setting.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"sprite1\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"code PYTHON\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Đồ án\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Đồ án/sprite1.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"waitting_hall\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"code PYTHON\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Đồ án\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Đồ án/waitting_hall.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"zombie\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"code PYTHON\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/Đồ án\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/Đồ án/zombie.py\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Python.waitting_hall\" />\r\n        <item itemvalue=\"Python.sprite1\" />\r\n        <item itemvalue=\"Python.zombie\" />\r\n        <item itemvalue=\"Python.game_setting\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-python-sdk-5a2391486177-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13763.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration>C:\\Users\\ASUS\\AppData\\Roaming\\Subversion</configuration>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"cc7245c6-9e8d-4c19-aa9d-4263029909a8\" name=\"Changes\" comment=\"\" />\r\n      <created>1707060311251</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1707060311251</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Add files via upload\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1711204376978</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711204376978</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"Add files via upload\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1711204393679</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1711204393679</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"OPEN_GENERIC_TABS\">\r\n      <map>\r\n        <entry key=\"850b2a9e-41cf-4bf6-947f-9806ced240b3\" value=\"TOOL_WINDOW\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"850b2a9e-41cf-4bf6-947f-9806ced240b3\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"vrfvzrdvffd\" />\r\n    <MESSAGE value=\"Add files via upload\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Add files via upload\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4b8d92175ea550ef65f185d61e45461d6c7b1760)
++++ b/.idea/workspace.xml	(date 1711204836838)
+@@ -46,15 +46,15 @@
+     </option>
+   </component>
+   <component name="HighlightingSettingsPerFile">
+-    <setting file="file://$PROJECT_DIR$/Đồ án/astar.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/event.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/game_setting.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/player.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/setting.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/sprite1.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/sprites.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/waitting_hall.py" root0="SKIP_INSPECTION" />
+-    <setting file="file://$PROJECT_DIR$/Đồ án/zombie.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/astar.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/event.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/game_setting.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/player.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/setting.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/sprite1.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/sprites.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/waitting_hall.py" root0="SKIP_INSPECTION" />
++    <setting file="file://$PROJECT_DIR$/zombie.py" root0="SKIP_INSPECTION" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 7
+@@ -65,32 +65,34 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;Python.Sảnh_chờ.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.chanle.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.cộng trừ nhân chia.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.event.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.game.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.game_setting.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.player.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.robot.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.sprite1.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.sprites.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.sảnh chờ.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.waitting_hall.executor&quot;: &quot;Run&quot;,
+-    &quot;Python.zombie.executor&quot;: &quot;Run&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;E:/code PYTHON&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "Python.Sảnh_chờ.executor": "Run",
++    "Python.chanle.executor": "Run",
++    "Python.cộng trừ nhân chia.executor": "Run",
++    "Python.event.executor": "Run",
++    "Python.game.executor": "Run",
++    "Python.game_setting.executor": "Run",
++    "Python.player.executor": "Run",
++    "Python.robot.executor": "Run",
++    "Python.sprite1.executor": "Run",
++    "Python.sprites.executor": "Run",
++    "Python.sảnh chờ.executor": "Run",
++    "Python.test.executor": "Run",
++    "Python.waitting_hall.executor": "Run",
++    "Python.zombie.executor": "Run",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "git-widget-placeholder": "main",
++    "last_opened_file_path": "E:/code PYTHON",
++    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+   },
+-  &quot;keyToStringList&quot;: {
+-    &quot;ChangesTree.GroupingKeys&quot;: [
++  "keyToStringList": {
++    "ChangesTree.GroupingKeys": [
+     ]
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager" selected="Python.waitting_hall">
+     <configuration name="game_setting" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+       <module name="code PYTHON" />
+@@ -224,7 +226,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1711204393679</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="Add files via upload">
++      <option name="closed" value="true" />
++      <created>1711204724099</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1711204724099</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
