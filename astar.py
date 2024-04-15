@@ -3,7 +3,7 @@ import math
 from setting import *
 
 
-class node:
+class node: #class node
 
     def __init__(self, parent, position):
         self.parent = parent
@@ -22,7 +22,7 @@ def remove_node(node): #thay đổi thuộc tính remove của node thành True
     node.remove = True
 
 
-def pop_node(open_list):    #lấy node có f nhỏ nhất trong open_list
+def pop_node(open_list): #lấy node có f nhỏ nhất trong open_list
     while open_list:
         _, node = heapq.heappop(open_list) 
         if not node.remove: #nếu node không được đánh dấu remove thì trả về node
@@ -30,11 +30,11 @@ def pop_node(open_list):    #lấy node có f nhỏ nhất trong open_list
     return None
 
 
-def heuristics(a, b):
+def heuristics(a, b): #tính khoảng cách giữa 2 node
     return math.sqrt((a.position[0] - b.position[0]) ** 2 + abs(a.position[1] - b.position[1]) ** 2)
 
 
-def a_star(maze, start, end):
+def a_star(maze, start, end): #tìm đường đi ngắn nhất từ start đến end
     start_node = node(None, start)
     end_node = node(None, end)
     open_list = []
@@ -44,7 +44,7 @@ def a_star(maze, start, end):
 
     while open_list:
         current_node = pop_node(open_list)
-        if current_node.position == end_node.position:
+        if current_node.position == end_node.position: #nếu node hiện tại là node cuối thì trả về đường đi
             path = []
             while current_node.parent is not None:
                 path.append(current_node.position)
@@ -54,7 +54,7 @@ def a_star(maze, start, end):
 
         closed_list.add(current_node.position)
 
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: #kiểm tra 4 hướng đi
             node_position = (
                 current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
@@ -62,7 +62,7 @@ def a_star(maze, start, end):
                     maze[0]):
                 continue
 
-            if maze[node_position[0]][node_position[1]] == '1':
+            if maze[node_position[0]][node_position[1]] == '1' :
                 continue
 
             if node_position in closed_list:
